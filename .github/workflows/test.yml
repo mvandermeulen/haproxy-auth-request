@@ -22,7 +22,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install apt dependencies.
       run: |
-        sudo apt-get install -y liblua5.3-dev lua-socket
+        sudo apt-get install -y liblua5.3-dev lua-json
     - name: Install HAProxy.
       run: |
         curl -fsSL http://www.haproxy.org/download/${HAPROXY_VERSION}/src/snapshot/haproxy-ss-LATEST.tar.gz -o haproxy.tar.gz
