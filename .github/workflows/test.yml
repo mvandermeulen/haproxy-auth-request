@@ -43,5 +43,10 @@ jobs:
         tar xvf VTest.tar.gz -C VTest --strip-components=1
         make -C VTest -j$(nproc) FLAGS="-O2 -s -Wall"
         sudo install -m755 VTest/vtest /usr/bin/vtest
+    - name: Install haproxy-lua-http globally.
+      run: |
+        sudo install -m755 -d /usr/local/share/lua/5.3/
+        sudo install -m644 haproxy-lua-http/http.lua /usr/local/share/lua/5.3/haproxy-lua-http.lua
+        sed -i 's/lua-prepend-path/#lua-prepend-path/g' test/*.vtc
     - name: Run tests.
       run: vtest -Dauth_request_root=$(pwd) -Dhaproxy_version=$(haproxy -v |awk 'NR==1{print $3}') -k -t 10 test/*.vtc
